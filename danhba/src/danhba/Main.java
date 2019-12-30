@@ -9,6 +9,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         List<DanhBa> danhBas = new ArrayList<>();
 
+        String fileDB = "/home/ninhkobietnau/Desktop/DanhBa/danhba/src/danhba/DANHBA.DAT";
+
         do {
             showMenu();
             System.out.println("Nhap lua chon : ");
@@ -39,18 +41,18 @@ public class Main {
                 case 3:
                     String ten1;
                     sc.nextLine();
-                    System.out.println("Nhap ten can tim : ");
+                    System.out.println("Nhap ten can sua : ");
                     ten1 = sc.nextLine();
                     for (int i = 0; i < danhBas.size(); i++){
                         if(danhBas.get(i).getTen().equals(ten1)){
-                            danhBas.get(i).capnhat();
+                            danhBas.get(i).setSdt(ten1);
                         }
                     }
                     break;
                 case 4:
                     String ten2;
                     sc.nextLine();
-                    System.out.println("Nhap ten can tim : ");
+                    System.out.println("Nhap ten can xoa : ");
                     ten2 = sc.nextLine();
                     for (int i = 0; i < danhBas.size(); i++){
                         if(danhBas.get(i).getTen().equals(ten2)){
@@ -77,52 +79,15 @@ public class Main {
                     }
                     break;
                 case 7:
-                    FileOutputStream fos = null;
-                    ObjectOutputStream oos = null;
 
-                    try{
-                        fos = new FileOutputStream("danhba.dat");
-                        oos = new ObjectOutputStream(fos);
+                    danhBas.clear();
+                    IOFile.readFile(danhBas, fileDB);
 
-                            oos.writeObject(danhBas);
-
-
-                        System.out.println("Ghi ra file thanh cong !");
-                        oos.close();
-
-                    }catch (Exception e) {
-                    } finally {
-                        try {
-                            if (fos!=null) {
-                                fos.close();
-                            }
-                            if (oos!=null) {
-                                oos.close();
-                            }
-                        }catch (Exception e){}
-                    }
+                    System.out.println("done");
                     break;
                 case 8:
-                    FileInputStream fis = null;
-                    ObjectInputStream ois = null;
-
-                    try {
-                        fis = new FileInputStream("danhba.dat");
-                        ois = new ObjectInputStream(fis);
-
-                        danhBas = (List<DanhBa>) ois.readObject();
-
-                    }catch (Exception e) {
-                    } finally {
-                        try {
-                            if (fis!=null) {
-                                fis.close();
-                            }
-                            if (ois!=null) {
-                                ois.close();
-                            }
-                        }catch (Exception e){}
-                    }
+                    IOFile.writeFile(danhBas, fileDB);
+                    System.out.println("Done");
                     break;
                 case 9:
                     System.out.println("goodbye!");
@@ -144,8 +109,8 @@ public class Main {
         System.out.println("4. Xoa");
         System.out.println("5. Sap xep theo ten");
         System.out.println("6. Hien thi");
-        System.out.println("7. Luu danh ba");
-        System.out.println("8. Doc danh ba");
+        System.out.println("7. doc danh ba");
+        System.out.println("8. ghi danh ba");
         System.out.println("9. Exit");
     }
 }

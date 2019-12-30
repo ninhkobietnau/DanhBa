@@ -7,8 +7,6 @@ public class DanhBa implements Serializable {
     private String ten;
     private String sdt;
 
-    Scanner sc = new Scanner(System.in);
-
     public DanhBa() {
     }
 
@@ -34,19 +32,19 @@ public class DanhBa implements Serializable {
     }
 
     public void nhap() {
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("Nhap ten : ");
         ten = sc.nextLine();
-        capnhat();
+        System.out.println("Nhap sdt : ");
+        sdt = sc.nextLine();
     }
 
     public void xuat(){
         System.out.println(toString());
     }
 
-    public void capnhat() {
-        System.out.println("Nhap sdt : ");
-        sdt = sc.nextLine();
-    }
+
     @Override
     public String toString() {
         return "DanhBa{" +
